@@ -1,0 +1,19 @@
+trigger: 
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+
+- task: AccuKnox-SAST@0
+  inputs:
+    sonarQubeUrl: $(sonarQubeUrl)
+    sonarQubeToken: $(sonarQubeToken)
+    sonarQubeProjectKey: $(sonarQubeProjectKey)
+    accuknoxEndpoint: $(accuknoxEndpoint)
+    accuknoxTenantId: $(accuknoxTenantId)
+    accuknoxToken: $(accuknoxToken)
+    accuknoxLabel: $(accuknoxLabel)
+    qualityGate: $(qualityGate)
+    skipSonarQubeScan: $(skipSonarQubeScan)
