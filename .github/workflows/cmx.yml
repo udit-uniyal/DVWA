@@ -27,13 +27,14 @@ jobs:
           cx_tenant: accuknox-nfr
 
       - name: Fetch results
-        run: docker run --rm \
-          -e API_KEY=${{ secrets.cxapikey }} \
-          -e PROJECT_NAME=udit-uniyal/DVWA \
-          -e REPORT_PATH=/app/data/ \
-          -v $PWD:/app/data/ \
-          accuknox/checkmarxjob:1.0.4
-
+        run: |
+          docker run --rm \
+            -e API_KEY=${{ secrets.cxapikey }} \
+            -e PROJECT_NAME=udit-uniyal/DVWA \
+            -e REPORT_PATH=/app/data/ \
+            -v $PWD:/app/data/ \
+            accuknox/checkmarxjob:1.0.4
+            
       - name: Upload SARIF file with code snippets
         uses: actions/upload-artifact@v4
         with:
