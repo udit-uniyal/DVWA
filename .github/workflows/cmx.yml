@@ -29,7 +29,7 @@ jobs:
       - name: Fetch Checkmarx results and forward to AccuKnox
         run: |
           docker run --rm \
-            -e API_KEY="${{ secrets.cxapikey }}" \
+            -e API_KEY=eyJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJkNTBiZTRkMi1lMzZkLTQwNTYtODA5ZS0yNTg4NmJmODM1ODQifQ.eyJpYXQiOjE3NDQ2OTA3MDcsImp0aSI6IjQ2ZWVkZjJiLWJhMjAtNDllOS05OGNiLWYzYzlhYzM1YjBiNyIsImlzcyI6Imh0dHBzOi8vZGV1LmlhbS5jaGVja21hcngubmV0L2F1dGgvcmVhbG1zL2FjY3Vrbm94LW5mciIsImF1ZCI6Imh0dHBzOi8vZGV1LmlhbS5jaGVja21hcngubmV0L2F1dGgvcmVhbG1zL2FjY3Vrbm94LW5mciIsInN1YiI6IjI4NWEyOTFmLTQ1YmItNGJlYS05MWMzLWZhMzliMWYzNzUxMCIsInR5cCI6Ik9mZmxpbmUiLCJhenAiOiJhc3QtYXBwIiwic2lkIjoiNzU2MmE0ZDUtZDAxMC00MDExLWIxZWYtZGE2YTZhZmEzNzBhIiwic2NvcGUiOiJhc3QtYXBpIGVtYWlsIGlhbS1hcGkgcm9sZXMgZ3JvdXBzIHByb2ZpbGUgb2ZmbGluZV9hY2Nlc3MifQ.vVHkhwCKy_n-1VQuAIEvtnuFZmnk-YetSxyrLXxo2ijz4HbBPGY1JN_dxceShN-PI0NkfD_Hy4YB8fYuLhQ0fw \
             -e PROJECT_NAME="udit-uniyal/DVWA" \
             -e REPORT_PATH="/app/data/" \
             -v "${{ github.workspace }}:/app/data/" \
