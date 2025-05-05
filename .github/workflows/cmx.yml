@@ -28,8 +28,7 @@ jobs:
 
       - name: Fetch Checkmarx results and forward to AccuKnox
         run: |
-          docker run --rm \
-            -e API_KEY=${{ secrets.cxapikey }} \
+          docker run --rm -e API_KEY=${{ secrets.cxapikey }} \
             -e PROJECT_NAME="udit-uniyal/DVWA" \
             -e REPORT_PATH="/app/data/" \
             -v "${{ github.workspace }}:/app/data/" \
@@ -46,5 +45,5 @@ jobs:
           file=$(ls CHECKMARX-*.json | head -n1)
           curl --location "${{ secrets.CSPM_URL }}/api/v1/artifact/?tenant_id=${{ secrets.TENANT_ID }}&data_type=CMX&save_to_s3=true&label_id=${{ secrets.LABEL_ID }}" \
             --header "Tenant-Id: ${{ secrets.TENANT_ID }}" \
-            --header "Authorization: Bearer ${{ secrets.CSPM_TOKEN }}" \
+            --header "Authorization: Bearer ${{ secrets.AK_TOKEN }}" \
             --form "file=@$file"
