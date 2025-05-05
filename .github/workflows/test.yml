@@ -1,0 +1,25 @@
+
+name: Checkmarx API Integration
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  security-events: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Fetch Checkmarx results and forward to AccuKnox
+        run: |
+          docker run --rm -e API_KEY="${{ secrets.cxapikey }}" \
+            -e PROJECT_NAME="udit-uniyal/DVWA" \
+            -e REPORT_PATH="/app/data/" \
+            -v "${{ github.workspace }}:/app/data/" \
+            accuknox/checkmarxjob:1.0.4
