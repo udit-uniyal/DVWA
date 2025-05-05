@@ -1,4 +1,4 @@
-name: Checkmarx api integration
+name: Checkmarx API Integration
 
 on:
   push:
@@ -21,20 +21,18 @@ jobs:
       - name: Checkmarx scan
         uses: checkmarx/ast-github-action@main
         with:
-          base_uri: https://deu.iam.checkmarx.net/
+          base_uri: "https://deu.iam.checkmarx.net/"
           cx_client_id: ${{ secrets.cxclientid }}
           cx_client_secret: ${{ secrets.cxclientsecret }}
           cx_tenant: accuknox-nfr
 
-
       - name: Fetch results
-        run: 
-          docker run --rm \
-            -e API_KEY=${{secrets.cxapikey}} \
-            -e PROJECT_NAME=udit-uniyal/DVWA \
-            -e REPORT_PATH=/app/data/ \
-            -v $PWD:/app/data/ \
-            accuknox/checkmarxjob:1.0.4
+        run: docker run --rm \
+          -e API_KEY=${{ secrets.cxapikey }} \
+          -e PROJECT_NAME=udit-uniyal/DVWA \
+          -e REPORT_PATH=/app/data/ \
+          -v $PWD:/app/data/ \
+          accuknox/checkmarxjob:1.0.4
 
       - name: Upload SARIF file with code snippets
         uses: actions/upload-artifact@v4
@@ -42,9 +40,10 @@ jobs:
           name: sarif-results-with-snippets
           path: CHECKMARX-*.json
 
-      - name: Push result to accuknox console
+      - name: Push result to AccuKnox Console
         run: |
-          curl --location '${{ secrets.CSPM_URL }}/api/v1/artifact/?tenant_id=${{ secrets.TENANT_ID }}&data_type=CMX&save_to_s3=true&label_id=${{ secrets.LABEL_ID }}' \
-            --header 'Tenant-Id: ${{ secrets.TENANT_ID }}' \
-            --header 'Authorization: Bearer ${{ secrets.CSPM_TOKEN }}' \
-            --form 'file=@./CHECKMARX-*.json'
+          file=$(ls CHECKMARX-*.json | head -n1)
+          curl --location "${{ secrets.CSPM_URL }}/api/v1/artifact/?tenant_id=${{ secrets.TENANT_ID }}&data_type=CMX&save_to_s3=true&label_id=${{ secrets.LABEL_ID }}" \
+            --header "Tenant-Id: ${{ secrets.TENANT_ID }}" \
+            --header "Authorization: Bearer ${{ secrets.CSPM_TOKEN }}" \
+            --form "file=@$file"
