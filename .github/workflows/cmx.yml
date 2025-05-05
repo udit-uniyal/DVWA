@@ -25,11 +25,12 @@ jobs:
           cx_client_id: ${{ secrets.cxclientid }}
           cx_client_secret: ${{ secrets.cxclientsecret }}
           cx_tenant: accuknox-nfr
+          project_name: githubtest
 
       - name: Fetch Checkmarx results and forward to AccuKnox
         run: |
           docker run --rm -e API_KEY=${{ secrets.cxapikey }} \
-            -e PROJECT_NAME="udit-uniyal/DVWA" \
+            -e PROJECT_NAME="githubtest" \
             -e REPORT_PATH="/app/data/" \
             -v "${{ github.workspace }}:/app/data/" \
             accuknox/checkmarxjob:1.0.4
@@ -43,7 +44,7 @@ jobs:
       - name: Push result to AccuKnox Console
         run: |
           file=$(ls CHECKMARX-*.json | head -n1)
-          curl --location "${{ secrets.CSPM_URL }}/api/v1/artifact/?tenant_id=${{ secrets.TENANT_ID }}&data_type=CX&save_to_s3=true&label_id=${{ secrets.LABEL_ID }}" \
+          curl --location "${{ secrets.CSPM_URL }}/api/v1/artifact/?tenant_id=${{ secrets.TENANT_ID }}&data_type=CX&save_to_s3=true&label_id=cmxghh" \
             --header "Tenant-Id: ${{ secrets.TENANT_ID }}" \
             --header "Authorization: Bearer ${{ secrets.AK_TOKEN }}" \
             --form "file=@$file"
