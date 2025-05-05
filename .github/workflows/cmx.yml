@@ -37,19 +37,14 @@ jobs:
             accuknox/checkmarxjob:1.0.4
 
       - name: Upload SARIF file with code snippets
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: sarif-results-with-snippets
-          path: cx_result.json
+          path: CHECKMARX-*.json
 
-      - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: cx_result.json
-
-      - name: Push SARIF file to CSPM panel
+      - name: Push result to accuknox console
         run: |
           curl --location '${{ secrets.CSPM_URL }}/api/v1/artifact/?tenant_id=${{ secrets.TENANT_ID }}&data_type=CMX&save_to_s3=true&label_id=${{ secrets.LABEL_ID }}' \
             --header 'Tenant-Id: ${{ secrets.TENANT_ID }}' \
             --header 'Authorization: Bearer ${{ secrets.CSPM_TOKEN }}' \
-            --form 'file=@./tmp_sarif_with_snippets.sarif'
+            --form 'file=@./CHECKMARX-*.json'
