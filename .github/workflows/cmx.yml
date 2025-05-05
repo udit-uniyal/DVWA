@@ -24,7 +24,7 @@ jobs:
           base_uri: https://deu.iam.checkmarx.net/
           cx_client_id: ${{ secrets.cxclientid }}
           cx_client_secret: ${{ secrets.cxclientsecret }}
-          cx_tenant: ${{ secrets.cxtenant }}
+          cx_tenant: accuknox-nfr
 
 
       - name: Fetch results
