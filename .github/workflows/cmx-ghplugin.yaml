@@ -3,7 +3,7 @@ name: Checkmarx to AccuKnox
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   cx_ak:
