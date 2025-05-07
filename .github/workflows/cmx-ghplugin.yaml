@@ -1,0 +1,23 @@
+name: Checkmarx to AccuKnox
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  cx_ak:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Checkmarx AccuKnox Integration
+        uses: accuknox/accuknox-checkmarx-action@v1.0.1
+        with:
+          api_key: ${{ secrets.cxapikey }}
+          project_name: "dvwa"
+          accuknox_endpoint: ${{ secrets.cspm_url }}
+          tenant_id: ${{ secrets.tenant_id }}
+          ak_token: ${{ secrets.ak_token }}
+          label_id: "ghcmx"
