@@ -34,7 +34,21 @@ jobs:
           accuknox_endpoint: "cspm.demo.accuknox.com"
           accuknox_tenant: "${{ secrets.AK_TENANT_ID }}"
           accuknox_token: "${{ secrets.AK_TOKEN }}"
-          accuknox_label: "DVWA"
+          accuknox_label: "dvwa"
           input_soft_fail: "true"
           upload_artifact: false
 
+  dast:
+    runs-on: ubuntu-latest
+    needs: sast
+    steps:
+      - name: Run AccuKnox DAST Scan
+        uses: accuknox/dast-scan-action@v1.0.0
+        with:
+          target_url: "http://testphp.vulnweb.com"
+          accuknox_endpoint: cspm.demo.accuknox.com
+          tenant_id: ${{ secrets.AK_TENANT_ID }}
+          accuknox_token: ${{ secrets.AK_TOKEN }}
+          label: "dvwa"
+          severity_threshold: "High"
+          scan_type: "baseline"
