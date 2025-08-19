@@ -9,13 +9,26 @@ on:
       - master
 
 jobs:
-  accuknox-cicd:
+  secretscan:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: secretscan
+        uses: accuknox/secret-scan-action@v1.0.0
+        with:
+          token: ${{ secrets.ACCUKNOX_TOKEN }}
+          tenant_id: ${{ secrets.ACCUKNOX_TENANT_ID }}
+          label: dvwa
+          endpoint: cspm.demo.accuknox.com
+          fail: true
+  sast:
+    runs-on: ubuntu-latest
+    needs: secretscan
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: "Run Accuknox SAST: Opengrep"
+      - name: "sast"
         uses: accuknox/sast-scan-opengrep-action@1.0.0
         with:
           accuknox_endpoint: "cspm.demo.accuknox.com"
@@ -24,3 +37,4 @@ jobs:
           accuknox_label: "DVWA"
           input_soft_fail: "true"
           upload_artifact: false
+
