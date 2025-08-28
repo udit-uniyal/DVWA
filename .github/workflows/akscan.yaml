@@ -28,6 +28,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: AccuKnox Secret Scan
+        uses: accuknox/secret-scan-action@v1.0.0
+        with:
+          token: ${{ secrets.AK_TOKEN }}
+          tenant_id: ${{ secrets.AK_TENANT_ID }}
+          label: dvwa
+          endpoint: "cspm.demo.accuknox.com"
+          fail: true
+
       - name: "sast"
         uses: accuknox/sast-scan-opengrep-action@1.0.0
         with:
