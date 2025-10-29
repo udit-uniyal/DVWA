@@ -36,7 +36,7 @@ jobs:
     name: 2. Upload Results to AccuKnox
     runs-on: ubuntu-latest
     # This job will only run after 'run-checkmarx-scan' has succeeded
-    needs: [run-checkmarx-scan] 
+    # needs: [run-checkmarx-scan] 
     
     steps:
       - name: Pull Results & Upload to AccuKnox
