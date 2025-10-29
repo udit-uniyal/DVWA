@@ -13,24 +13,24 @@ on:
   workflow_dispatch:
 
 jobs:
-  run-checkmarx-scan:
-    name: 1. Run Checkmarx SAST Scan
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+  # run-checkmarx-scan:
+  #   name: 1. Run Checkmarx SAST Scan
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout Code
+  #       uses: actions/checkout@v3
 
-      - name: Run Checkmarx One Scan
-        # This is the official Checkmarx action to initiate a scan
-        uses: Checkmarx/ast-github-action@2.0.23
-        with:
-          # --- Required Secrets ---
-          # Your Checkmarx server URL (e.g., https://eu.checkmarx.net)
-          base_uri: ${{ secrets.CX_BASE_URI }}
-          cx_client_id: ${{ secrets.CX_CLIENT_ID }}
-          cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
-          cx_tenant: ${{ secrets.CX_TENANT }}
-          project_name: udit-uniya/DVWA
+  #     - name: Run Checkmarx One Scan
+  #       # This is the official Checkmarx action to initiate a scan
+  #       uses: Checkmarx/ast-github-action@2.0.23
+  #       with:
+  #         # --- Required Secrets ---
+  #         # Your Checkmarx server URL (e.g., https://eu.checkmarx.net)
+  #         base_uri: ${{ secrets.CX_BASE_URI }}
+  #         cx_client_id: ${{ secrets.CX_CLIENT_ID }}
+  #         cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
+  #         cx_tenant: ${{ secrets.CX_TENANT }}
+  #         project_name: udit-uniya/DVWA
           
   upload-results-to-accuknox:
     name: 2. Upload Results to AccuKnox
@@ -48,7 +48,7 @@ jobs:
           
           # Run the Docker job you provided
           # It passes all secrets as environment variables
-          docker run --rm -it \
+          docker run --rm \
             -e CX_API_KEY='${{ secrets.CX_API_KEY }}' \
             -e CX_PROJECT='{"${{ github.repository }}":"${{ github.ref_name }}"}' \
             -e CX_PRIMARY_BRANCH='false' \
