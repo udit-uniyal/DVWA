@@ -58,7 +58,3 @@ jobs:
             -v $PWD:/app/data/ \
             accuknox/checkmarx-one-job:1.5
             
-      - name: List Generated Reports (Optional)
-        run: |
-          echo "Generated report files:"
-          ls -l Checkmarx-*.json
