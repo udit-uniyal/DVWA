@@ -54,10 +54,9 @@ jobs:
             -e CX_PRIMARY_BRANCH='false' \
             -e AK_ENDPOINT='${{ secrets.AK_ENDPOINT }}' \
             -e AK_LABEL='${{ secrets.AK_LABEL }}' \
-            -e AK_TENANT_ID='${{ secrets.AK_TENANT_ID }}' \
             -e AK_TOKEN='${{ secrets.AK_TOKEN }}' \
             -v $PWD:/app/data/ \
-            accuknox/checkmarx-one-job:1.4
+            accuknox/checkmarx-one-job:1.5
             
       - name: List Generated Reports (Optional)
         run: |
