@@ -27,21 +27,10 @@ jobs:
           # --- Required Secrets ---
           # Your Checkmarx server URL (e.g., https://eu.checkmarx.net)
           base_uri: ${{ secrets.CX_BASE_URI }}
-          # Your Checkmarx API Key (from your .env file)
-          apikey: ${{ secrets.CX_API_KEY }}
+          cx_client_id: ${{ secrets.CX_CLIENT_ID }}
+          cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
+          cx_tenant: ${{ secrets.CX_TENANT }}
           
-          # --- Scan Configuration ---
-          # Uses the repository name (e.g., "Udit/my-project")
-          project_name: ${{ github.repository }}
-          # Uses the current branch name (e.g., "main" or "feature-branch")
-          branch_name: ${{ github.ref_name }}
-          scan_types: "sast"
-          
-          # --- Critical Parameter ---
-          # This tells the action to wait for the scan to finish before completing.
-          # This is necessary so the next job has results to pull.
-          additional_parameters: --wait
-
   upload-results-to-accuknox:
     name: 2. Upload Results to AccuKnox
     runs-on: ubuntu-latest
