@@ -30,6 +30,7 @@ jobs:
           cx_client_id: ${{ secrets.CX_CLIENT_ID }}
           cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
           cx_tenant: ${{ secrets.CX_TENANT }}
+          project_name: udit-uniya/DVWA
           
   upload-results-to-accuknox:
     name: 2. Upload Results to AccuKnox
