@@ -22,7 +22,7 @@ jobs:
 
       - name: Run Checkmarx One Scan
         # This is the official Checkmarx action to initiate a scan
-        uses: checkmarx/cx-action@v2
+        uses: Checkmarx/ast-github-action@2.0.23
         with:
           # --- Required Secrets ---
           # Your Checkmarx server URL (e.g., https://eu.checkmarx.net)
