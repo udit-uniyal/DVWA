@@ -50,7 +50,7 @@ jobs:
           # It passes all secrets as environment variables
           docker run --rm \
             -e CX_API_KEY='${{ secrets.CX_API_KEY }}' \
-            -e CX_PROJECT='{"${{ github.repository }}":"${{ github.ref_name }}"}' \
+            -e CX_PROJECT='{"udit-uniyal/DVWA":"master"}' \
             -e CX_PRIMARY_BRANCH='false' \
             -e AK_ENDPOINT='${{ secrets.AK_ENDPOINT }}' \
             -e AK_LABEL='${{ secrets.AK_LABEL }}' \
